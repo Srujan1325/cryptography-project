@@ -21,8 +21,8 @@ def run_mitigations():
     print("Running Timing Mitigation Experiment...")
     charset = string.ascii_uppercase + "0123456789"
     secret_len = 8
-    samples_list = [10, 50, 100, 200, 500]
-    trials = 10
+    samples_list = [10, 50, 200, 1000, 5000]
+    trials = 20
     
     results = []
     
