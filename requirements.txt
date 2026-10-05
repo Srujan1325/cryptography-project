@@ -3,3 +3,4 @@ numpy
 matplotlib
 sympy
 pandas
+streamlit>=1.20.0
