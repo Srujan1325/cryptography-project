@@ -20,7 +20,7 @@ def main():
     corpus_path = 'data/corpus/cleaned_english.txt'
     with open(corpus_path, 'r') as f:
         corpus = f.read()
-    pt = corpus[:200]
+    pt = corpus[:1000]
     key = "HACKED"
     ct = encrypt(pt, key)
     print(f"Key: {key}")
@@ -46,13 +46,13 @@ def main():
     charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     oracle = lambda g: check(g, secret)
     print(f"Secret: {secret}")
-    guessed = recover_secret(oracle, len(secret), charset, samples=500)
+    guessed = recover_secret(oracle, len(secret), charset, samples=100)
     print(f"Recovered: {guessed}")
     
     # 4. Constant-Time Fix
     print("\n[4] Constant-Time Fix (Safe Check)")
     oracle_safe = lambda g: safe_check(g, secret)
-    guessed_safe = recover_secret(oracle_safe, len(secret), charset, samples=500)
+    guessed_safe = recover_secret(oracle_safe, len(secret), charset, samples=100)
     print(f"Recovered (should be garbage): {guessed_safe}")
 
 if __name__ == '__main__':
