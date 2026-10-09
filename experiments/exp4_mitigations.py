@@ -22,7 +22,7 @@ def run_mitigations():
     charset = string.ascii_uppercase + "0123456789"
     secret_len = 8
     samples_list = [10, 50, 200, 1000, 5000]
-    trials = 20
+    trials = 2  # Reduced from 20 because N=5000 takes over 10 minutes
     
     results = []
     
