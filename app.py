@@ -68,11 +68,14 @@ with tab_vig:
             with st.spinner("Running frequency analysis..."):
                 res = break_vigenere(ct)
                 
-            if res['key'] == short_key:
+            # The algorithm might recover HACKHACK instead of HACK, which is cryptographically identical
+            is_success = (res['key'] == short_key * (len(res['key']) // len(short_key)))
+            
+            if is_success:
                 st.success(f"Recovered Key: {res['key']}")
             else:
                 st.error(f"Recovered Key: {res['key']}")
-            st.info(f"Success: {res['key'] == short_key}")
+            st.info(f"Success: {is_success}")
             
     with col_safe:
         st.header("Attack with mitigation")
