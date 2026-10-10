@@ -45,14 +45,20 @@ tab_vig, tab_rsa, tab_timing = st.tabs(["Vigenère", "RSA", "Timing Attack"])
 # TAB 1: VIGENÈRE
 # ==========================================
 with tab_vig:
+    import os
+    corpus_path = os.path.join(os.path.dirname(__file__), 'data/corpus/cleaned_english.txt')
+    try:
+        with open(corpus_path, 'r') as f:
+            pt = f.read()[:2000]
+    except:
+        pt = "THISISANATURALENGLISHSENTENCETHATISLONGANDHASSOMENORMALWORDDISTRIBUTIONS" * 20
+        
     col_vuln, col_safe = st.columns(2)
     
     with col_vuln:
         st.header("Attack without mitigation")
         st.write("Using a short, repeating key allows frequency analysis (Kasiski/IC) to easily break the cipher.")
         
-        # We need a long enough plaintext for statistical analysis to be mathematically reliable
-        pt = "THISISASECRETMESSAGETHATNEEDSTOBEENCRYPTEDANDWENEEDITLONGENOUGHFORFREQUENCYANALYSISTOWORKPROPERLYSOHEREAREEXTRAWORDSTOMAKESURETHEATTACKHASENOUGHDATA" * 10
         short_key = "HACK"
         
         if st.button("Run Vulnerable Vigenère Attack"):
