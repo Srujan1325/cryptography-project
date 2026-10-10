@@ -51,7 +51,8 @@ with tab_vig:
         st.header("Attack without mitigation")
         st.write("Using a short, repeating key allows frequency analysis (Kasiski/IC) to easily break the cipher.")
         
-        pt = "THIS IS A SECRET MESSAGE THAT NEEDS TO BE ENCRYPTED AND WE NEED IT LONG ENOUGH FOR FREQUENCY ANALYSIS TO WORK PROPERLY SO HERE ARE EXTRA WORDS TO MAKE SURE THE ATTACK HAS ENOUGH DATA"
+        # We need a long enough plaintext for statistical analysis to be mathematically reliable
+        pt = "THISISASECRETMESSAGETHATNEEDSTOBEENCRYPTEDANDWENEEDITLONGENOUGHFORFREQUENCYANALYSISTOWORKPROPERLYSOHEREAREEXTRAWORDSTOMAKESURETHEATTACKHASENOUGHDATA" * 10
         short_key = "HACK"
         
         if st.button("Run Vulnerable Vigenère Attack"):
@@ -61,7 +62,10 @@ with tab_vig:
             with st.spinner("Running frequency analysis..."):
                 res = break_vigenere(ct)
                 
-            st.success(f"Recovered Key: {res['key']}")
+            if res['key'] == short_key:
+                st.success(f"Recovered Key: {res['key']}")
+            else:
+                st.error(f"Recovered Key: {res['key']}")
             st.info(f"Success: {res['key'] == short_key}")
             
     with col_safe:
